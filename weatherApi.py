@@ -46,8 +46,8 @@ def main():
 
         print(f"Hello, {name}! {weather_info}")
 
-        exit_choice = input("Do you want to exit? (yes/no): ").lower()
-        if exit_choice == 'yes':
+        exit_choice = input("Do you want to exit? (y/n): ").lower()
+        if exit_choice == 'y':
             print("Goodbye! Thank you for using the Weather App.")
             break
 
