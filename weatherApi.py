@@ -1,5 +1,7 @@
 import requests
+
 # calls openweathermap.org and returns weather data defined by user, including error logic for bad zip codes to request re-entry of zip code if 404
+
 def get_weather(api_key, zip_code, units):
     base_url = "https://api.openweathermap.org/data/2.5/weather"
     params = {
