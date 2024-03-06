@@ -1,5 +1,5 @@
 import requests
-
+# calls openweathermap.org and returns weather data defined by user, including error logic for bad zip codes to request re-entry of zip code if 404
 def get_weather(api_key, zip_code, units):
     base_url = "https://api.openweathermap.org/data/2.5/weather"
     params = {
@@ -16,7 +16,9 @@ def get_weather(api_key, zip_code, units):
         condition = weather_data.get("weather", [{}])[0].get("description")
 
         unit_label = "Celsius" if units == "metric" else "Fahrenheit"
-        return f"The current temperature in {zip_code} is {temperature}° {unit_label}. {condition.capitalize()}."
+        return f"The current temperature in {zip_code} is {temperature}°{unit_label}. {condition.capitalize()}."
+    elif response.status_code == 404:
+        return f"Invalid zip code. Please enter a valid zip code."
     else:
         return f"Failed to retrieve weather data. Status code: {response.status_code}"
 
@@ -36,6 +38,10 @@ def main():
         api_key = "0ebd3595629f989f2bf8e2a953b1c052"
 
         weather_info = get_weather(api_key, zip_code, units)
+        if "Invalid zip code" in weather_info:
+            print(weather_info)
+            continue
+
         print(f"Hello, {name}! {weather_info}")
 
         exit_choice = input("Do you want to exit? (yes/no): ").lower()
